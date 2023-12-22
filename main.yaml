@@ -1,0 +1,36 @@
+---
+
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Copy zshrc to home directory.
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/files/zshrc"
+        dest: /home/julian/.zshrc
+        mode: 0644
+        owner: julian
+        group: julian
+      tags: [ zsh ]
+  roles:
+    - role: geerlingguy.docker
+    - role: gantsign.visual-studio-code
+      users:
+        - username: julian
+          visual_studio_code_extensions:
+            - ms-vscode.cpptools
+            - ms-python.python
+            - njpwerner.autodocstring
+            - charliermarsh.ruff
+      tags: [ vscode ]
+    - role: gantsign.oh-my-zsh
+      oh_my_zsh_write_zshrc: false
+      users:
+        - username: julian
+          plugins: 
+            - git
+            - poetry  
+          update_mode: reminder
+          update_frequency: 10
+          write_zshrc: false
+      tags: [ zsh ]
+

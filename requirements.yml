@@ -1,0 +1,8 @@
+---
+roles:
+  - name: geerlingguy.docker
+  - name: gantsign.visual-studio-code
+  - name: gantsign.oh-my-zsh
+
+    #collections:
+
